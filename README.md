@@ -49,7 +49,7 @@ The MarsAir booking system is a web application that allows users to book flight
 ### Project Setup
 1. Clone the repository:
 ```
-clone <repository-url>
+clone https://github.com/ceteongvanness/marsair-tests
 cd marsair-tests
 ```
 
