@@ -1,0 +1,20 @@
+{
+    "name": "marsair-tests",
+    "version": "1.0.0",
+    "description": "MarsAir Test Automation",
+    "scripts": {
+        "test": "playwright test",
+        "test:debug": "playwright test --debug",
+        "test:ui": "playwright test --ui",
+        "report": "playwright show-report",
+        "report:html": "playwright show-report playwright-report",
+        "test:report": "playwright test && playwright show-report",
+        "clean": "rimraf test-results playwright-report allure-results allure-report",
+        "pretest": "npm run clean"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.48.2",
+        "rimraf": "^5.0.10",
+        "typescript": "^5.6.3"
+    }
+}
