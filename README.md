@@ -1,6 +1,45 @@
 
 ## MarsAir Test Automation
-This project contains automated tests for the MarsAir booking system using Playwright with TypeScript.
+The MarsAir booking system is a web application that allows users to book flights to Mars. The application includes flight search functionality, date selection, and promotional code features.
+
+### Testing Scope
+* Flight booking search functionality
+* Date validation rules
+* Promotional code validation
+* Navigation and UI elements
+* Error message validation
+
+### Test Strategy
+#### Testing Levels
+1. Unit Testing
+* Individual component functionality
+* Date validation logic
+* Promotional code validation
+2. Integration Testing
+* Search form submission
+* Navigation between pages
+* Form interactions
+3. End-to-End Testing
+* Complete booking flow
+* User journey scenarios
+* Cross-browser compatibility
+
+#### Testing Types
+1. Functional Testing
+* Search functionality
+* Date selection validation
+* Promotional code application
+* Navigation verification
+2. UI Testing
+* Form element presence
+* Error message display
+* Page layout verification
+* Response messages
+3. Error Handling
+* Invalid date combinations
+* Error message display
+* Invalid promotional codes
+* Empty form submissions
 
 ### Prerequisites
 
