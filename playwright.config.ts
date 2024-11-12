@@ -7,15 +7,16 @@ const config: PlaywrightTestConfig = {
         timeout: 10000
     },
     reporter: [
-        ['html'], // HTML reporter
-        ['list']  // Console reporter
+        ['html'],
+        ['list']
     ],
     use: {
+        // Set headless to true to run without GUI
+        headless: true,
+        viewport: { width: 1280, height: 720 },
         actionTimeout: 10000,
         navigationTimeout: 15000,
-        headless: false,
-        viewport: { width: 1280, height: 720 },
-        screenshot: 'only-on-failure' // Takes screenshots only on failure
+        screenshot: 'only-on-failure'
     },
     projects: [
         {
