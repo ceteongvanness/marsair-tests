@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig } from '@playwright/test';
+import { PlaywrightTestConfig, devices } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
     testDir: './tests',
@@ -6,26 +6,31 @@ const config: PlaywrightTestConfig = {
     expect: {
         timeout: 10000
     },
+    forbidOnly: !!process.env.CI,
+    retries: process.env.CI ? 2 : 0,
+    workers: process.env.CI ? 1 : undefined,
     reporter: [
         ['html'],
-        ['list']
+        ['list'],
+        ['junit', { outputFile: 'test-results/junit.xml' }],
+        ['json', { outputFile: 'test-results/report.json' }]
     ],
     use: {
-        // Set headless to true to run without GUI
         headless: true,
         viewport: { width: 1280, height: 720 },
         actionTimeout: 10000,
         navigationTimeout: 15000,
-        screenshot: 'only-on-failure'
+        screenshot: 'only-on-failure',
+        trace: process.env.CI ? 'on-first-retry' : 'on',
+        video: process.env.CI ? 'on-first-retry' : 'on'
     },
     projects: [
         {
-            name: 'Chrome',
-            use: {
-                browserName: 'chromium'
-            }
+            name: 'chromium',
+            use: { ...devices['Desktop Chrome'] }
         }
-    ]
+    ],
+    outputDir: 'test-results/',
 };
 
 export default config;
