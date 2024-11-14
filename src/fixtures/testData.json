@@ -1,0 +1,14 @@
+{
+    "validDates": {
+        "departures": ["July", "December"],
+        "returns": ["July (next year)", "December (next year)"]
+    },
+    "promoCodes": {
+        "valid": "AF3-FJK-418",
+        "invalid": "INVALID-CODE"
+    },
+    "messages": {
+        "noSeats": "Sorry, there are no more seats available",
+        "invalidSchedule": "Unfortunately, this schedule is not possible"
+    }
+}

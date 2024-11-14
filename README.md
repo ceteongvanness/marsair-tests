@@ -1,166 +1,249 @@
+# MarsAir Test Automation
 
-## MarsAir Test Automation
-The MarsAir booking system is a web application that allows users to book flights to Mars. The application includes flight search functionality, date selection, and promotional code features.
+Automated testing framework for MarsAir booking system using Playwright with TypeScript.
 
-### Testing Scope
-* Flight booking search functionality
-* Date validation rules
-* Promotional code validation
-* Navigation and UI elements
-* Error message validation
-
-### Test Strategy
-#### Testing Levels
-1. Unit Testing
-* Individual component functionality
-* Date validation logic
-* Promotional code validation
-2. Integration Testing
-* Search form submission
-* Navigation between pages
-* Form interactions
-3. End-to-End Testing
-* Complete booking flow
-* User journey scenarios
-* Cross-browser compatibility
-
-#### Testing Types
-1. Functional Testing
-* Search functionality
-* Date selection validation
-* Promotional code application
-* Navigation verification
-2. UI Testing
-* Form element presence
-* Error message display
-* Page layout verification
-* Response messages
-3. Error Handling
-* Invalid date combinations
-* Error message display
-* Invalid promotional codes
-* Empty form submissions
-
-### Prerequisites
-
-* Node.js (v14 or higher)
-* npm (Node Package Manager)
-
-### Project Setup
-1. Clone the repository:
-```
-clone https://github.com/ceteongvanness/marsair-tests
-cd marsair-tests
-```
-
-2. Install dependencies:
-```
-npm install
-```
-
-3. Install Playwright browsers:
-```
-npx playwright install
-```
-
-
-### Project Structure
-```
+## Project Structure
+```bash
 marsair-tests/
+├── src/
+│   ├── pages/                 # Page Objects
+│   │   ├── basePage.ts       # Base page with common methods
+│   │   └── marsAirPage.ts    # MarsAir specific page object
+│   ├── utils/                 # Utilities
+│   │   ├── dateUtils.ts      # Date validation utilities
+│   │   └── validationUtils.ts # General validation utilities
+│   ├── fixtures/             # Test Data
+│   │   ├── testData.json     # Test data in JSON format
+│   │   └── mockResponses.ts  # Mock response data
+│   └── helpers/              # Helper Functions
+│       ├── testHelper.ts     # Test helper functions
+│       └── reportHelper.ts   # Report generation helpers
 ├── tests/
-│   ├── marsair.spec.ts      # Test specifications
-│   └── marsair.page.ts      # Page object model
-├── playwright.config.ts     # Playwright configuration
-├── package.json            # Project dependencies and scripts
-└── README.md              # Project documentation
+│   ├── e2e/                  # End-to-End Tests
+│   │   ├── booking.spec.ts   # Booking flow tests
+│   │   └── marsair.spec.ts   # General MarsAir tests
+│   ├── integration/          # Integration Tests
+│   │   └── searchFlow.spec.ts # Search functionality tests
+│   └── unit/                 # Unit Tests
+│       └── dateValidator.spec.ts # Date validation tests
+├── config/                   # Configuration Files
+│   ├── playwright.config.ts  # Playwright configuration
+│   └── environment.config.ts # Environment variables
+├── reports/                  # Test Reports
+│   └── .gitkeep
+├── package.json             # Project dependencies and scripts
+├── tsconfig.json           # TypeScript configuration
+└── README.md               # Project documentation
 ```
 
-### Available Scripts
-* ```npm run test``` - Run tests (cleans previous results first)
-* ```npm run test:debug``` - Run tests in debug mode
-* ```npm run test:ui - Run ```tests with Playwright UI mode
-* ```npm run report ```- Show test report
-* ```npm run report:html``` - Show HTML report from playwright-report directory
-* ```npm run test:report ```- Run tests and show report immediately after
-* ```npm run clean ```- Clean all report directories
-* ```npm run pretest ```- Automatically runs before test (cleans reports)
+## Technology Stack
 
-### Running Tests
-#### Basic Test Run
-```
-npm run test
+- **Test Framework**: Playwright
+- **Language**: TypeScript
+- **Reporting**: 
+  - Playwright HTML Reporter
+  - Allure Reporter
+- **CI/CD**: GitHub Actions
+- **Version Control**: Git
+
+## Setup Instructions
+
+1. Install dependencies:
+```bash
+# Install Node dependencies
+npm install
+
+# Install Playwright browsers
+npx playwright install
+
+# Install Allure CLI (optional, for Allure reports)
+npm install -g allure-commandline
 ```
 
-#### Run Tests with UI Mode
+2. Configure environment:
+```bash
+# Copy environment config (if needed)
+cp config/environment.example.ts config/environment.config.ts
 ```
+
+## Running Tests
+
+### Basic Test Commands
+```bash
+# Run all tests
+npm test
+
+# Run specific test types
+npm run test:e2e          # End-to-End tests
+npm run test:integration  # Integration tests
+npm run test:unit         # Unit tests
+
+# Run with UI mode
 npm run test:ui
-```
 
-#### Run Tests in Debug Mode
-```
+# Run in debug mode
 npm run test:debug
 ```
 
-### Viewing Reports
-#### View Latest Report
-```
+### Test Reports
+
+#### Playwright HTML Report
+```bash
+# Generate and view HTML report
+npm run test:report
+
+# View existing report
 npm run report
 ```
-#### Run Tests and View Report
-```
-npm run test:report
+
+#### Allure Report
+```bash
+# Generate Allure report
+npm run allure:generate
+
+# View Allure report
+npm run allure:open
 ```
 
-#### Clean Reports
-```
+### Clean Up
+```bash
+# Clean reports and test results
 npm run clean
 ```
 
-### Test Report Location
-Test reports are generated in the following directories:
+## CI/CD Pipeline
 
-* HTML Report: ```playwright-report/```
-* Test Results: ```test-results/```
+### GitHub Actions Workflow
 
-### Troubleshooting
-If you encounter any issues:
-1. Clean the project:
-```
-npm run clean
-```
+The pipeline runs automatically on:
+- Push to main/master branch
+- Pull requests
+- Daily schedule (midnight UTC)
 
-2. Reinstall dependencies:
-```
-npm ci
-```
+#### Pipeline Steps:
+1. Setup environment
+   - Node.js installation
+   - Dependencies installation
+   - Playwright browsers installation
 
-3. Reinstall browsers:
-```
-npx playwright install
-```
+2. Test execution
+   - Run all test suites
+   - Generate reports
+   - Capture test artifacts
 
-#### Additional Information
-* Tests are written in TypeScript
-* Page Object Model pattern is used for better maintainability
-* Reports include screenshots for failed tests
-* All tests run in Chromium by default
+3. Report generation
+   - Generate HTML report
+   - Generate Allure report
+   - Upload reports as artifacts
 
-#### Common Problems and Solutions
+4. Deployment
+   - Deploy reports to GitHub Pages
+   - Send notifications
+   - Update status badges
 
-1. Tests failing to start:
-```
-npm run clean
-npm install
-npx playwright install
-```
+### Viewing Reports
 
-2. Report not generating:
-```
-npm run clean
-npm run test:report
-```
+1. **GitHub Actions**
+   - Go to Actions tab
+   - Select workflow run
+   - Download artifacts
 
-3. Browser not found:
-```
-npx playwright install
-```
+2. **GitHub Pages**
+   - Visit: `https://<username>.github.io/<repository>`
+   - View deployed Allure report
+
+3. **Local Reports**
+   ```bash
+   # View HTML report
+   npm run report
+
+   # View Allure report
+   npm run allure:generate
+   npm run allure:open
+   ```
+
+## Test Organization
+
+### 1. End-to-End Tests
+- Complete user journeys
+- Booking flow tests
+- Full system integration
+
+### 2. Integration Tests
+- Component interactions
+- Search functionality
+- Form validations
+
+### 3. Unit Tests
+- Date validation
+- Utility functions
+- Helper methods
+
+## Development Guidelines
+
+### Adding New Tests
+
+1. Page Objects (`src/pages/`)
+   - Create page class extending BasePage
+   - Define selectors and methods
+   - Implement page-specific logic
+
+2. Test Files (`tests/`)
+   - Choose appropriate test type (e2e/integration/unit)
+   - Follow existing naming conventions
+   - Include clear test descriptions
+
+3. Test Data (`src/fixtures/`)
+   - Add test data in JSON format
+   - Create mock responses if needed
+
+### Best Practices
+
+1. **Code Organization**
+   - Use page object pattern
+   - Maintain single responsibility
+   - Follow DRY principles
+
+2. **Test Writing**
+   - Clear test descriptions
+   - Independent tests
+   - Proper assertions
+   - Error handling
+
+3. **Maintenance**
+   - Regular updates
+   - Code reviews
+   - Documentation updates
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Test Failures**
+   ```bash
+   # Retry failed tests
+   npm test -- --retries=3
+
+   # Run with debug logs
+   npm test -- --debug
+   ```
+
+2. **Report Generation Issues**
+   ```bash
+   # Clean and regenerate
+   npm run clean
+   npm run test:report
+   ```
+
+3. **CI Pipeline Issues**
+   - Check GitHub Actions logs
+   - Verify environment variables
+   - Check browser installation
+
+## Contributing
+
+1. Fork the repository
+2. Create feature branch
+3. Commit changes
+4. Create pull request
+5. Await review and merge
