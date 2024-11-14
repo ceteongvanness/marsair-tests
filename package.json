@@ -3,23 +3,23 @@
     "version": "1.0.0",
     "description": "MarsAir Test Automation",
     "scripts": {
+        "setup": "ts-node scripts/setup.ts",
+        "pretest": "npm run setup && npm run clean",
         "test": "playwright test",
+        "test:headed": "playwright test --headed",
         "test:e2e": "playwright test tests/e2e",
         "test:integration": "playwright test tests/integration",
         "test:unit": "playwright test tests/unit",
-        "report": "playwright show-report",
-        "report:html": "playwright show-report playwright-report",
-        "allure:generate": "allure generate ./allure-results --clean",
-        "allure:open": "allure open ./allure-report",
-        "test:report": "playwright test && npm run report",
-        "clean": "rimraf playwright-report test-results allure-results allure-report",
-        "pretest": "npm run clean"
+        "report:show": "playwright show-report",
+        "report:html": "playwright test --reporter=html",
+        "test:report": "playwright test --reporter=html && playwright show-report",
+        "clean": "rimraf playwright-report test-results allure-results allure-report"
     },
     "devDependencies": {
         "@playwright/test": "^1.40.0",
         "@types/node": "^20.0.0",
-        "allure-playwright": "^2.9.2",
         "typescript": "^5.0.0",
-        "rimraf": "^5.0.1"
+        "rimraf": "^5.0.1",
+        "ts-node": "^10.9.1"
     }
 }

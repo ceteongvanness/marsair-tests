@@ -3,4 +3,6 @@ reports/*
 !reports/.gitkeep
 playwright-report/
 test-results/
+allure-results/
+allure-report/
 .DS_Store

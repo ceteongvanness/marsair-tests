@@ -1,5 +1,4 @@
 import { PlaywrightTestConfig } from '@playwright/test';
-import { environment } from './environment.config';
 
 const config: PlaywrightTestConfig = {
     testDir: '../tests',
@@ -7,24 +6,22 @@ const config: PlaywrightTestConfig = {
     expect: {
         timeout: 10000
     },
+    reporter: [
+        ['list'],  // Console reporter
+        ['html', { open: 'never' }]  // HTML reporter
+    ],
     use: {
         actionTimeout: 15000,
         navigationTimeout: 15000,
-        baseURL: environment.baseUrl,
+        baseURL: 'https://marsair.recruiting.thoughtworks.net/EngTeongCheah',
         headless: true,
         viewport: { width: 1280, height: 720 },
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure',
         video: 'on-first-retry'
     },
-    reporter: [
-        ['list'],
-        ['html'],
-        ['allure-playwright'],
-        ['json', { outputFile: 'test-results/test-results.json' }]
-    ],
+    outputDir: '../test-results/',
     workers: 1,
-    retries: process.env.CI ? 2 : 0,
     projects: [
         {
             name: 'Chrome',
